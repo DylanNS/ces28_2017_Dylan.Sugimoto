@@ -7,7 +7,7 @@ public class Despesa {
 		this.total= total;
 	}
 
-	public float getDespesa() {
+	public float getValorGasto() {
 		return total;
 	}
 	
