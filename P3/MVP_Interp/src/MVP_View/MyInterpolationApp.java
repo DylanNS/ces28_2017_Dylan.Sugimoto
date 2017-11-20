@@ -17,7 +17,7 @@ import MVP_Models.InterpolationMethod;//Precisa para Q3.
  * 2.  DEFINIR QUAL EH O ARQUIVO COM DADOS DE PONTOS DA FUNCAO (LEITURA ENTRADA DE USUARIO HUMANO)
  * 1. DEFINIR PONTO DE INTERPOLACAO (LEITURA ENTRADA DE USUARIO HUMANO)
  */
-public class MyInterpolationApp  implements Observer{
+public class MyInterpolationApp  implements Observer{//Q2 implementação do DP Observer
     
 	private Presenter _myPresenter;
 

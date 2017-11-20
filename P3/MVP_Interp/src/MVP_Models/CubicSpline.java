@@ -4,7 +4,7 @@ package MVP_Models;
 import java.util.Vector;
 
 
-//RESPONSABILIDADE: EFETIVAMENTE IMPLEMENTAR UM METODO DE INTERPOLACAO
+//RESPONSABILIDADE:8. EFETIVAMENTE IMPLEMENTAR UM METODO DE INTERPOLACAO
 public class CubicSpline implements InterpolationMethod {
     private int i = 1, l = 0, n = 0, lim_left = 0, lim_right = 0;
     private float result = 0;

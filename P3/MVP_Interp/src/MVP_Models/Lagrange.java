@@ -4,7 +4,7 @@ package MVP_Models;
 
 import java.util.Vector;
 
-//RESPONSABILIDADE: EFETIVAMENTE IMPLEMENTAR UM METODO DE INTERPOLACAO
+//RESPONSABILIDADE:8. EFETIVAMENTE IMPLEMENTAR UM METODO DE INTERPOLACAO
 public class Lagrange implements InterpolationMethod {
     private int n = 0;
     private double sum = 0, product = 0;

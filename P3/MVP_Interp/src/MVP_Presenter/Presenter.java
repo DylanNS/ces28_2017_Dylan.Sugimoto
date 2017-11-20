@@ -2,6 +2,7 @@
  * @author Dylan N. Sugimoto
  * Data: 20/11/2017
  * Q1. Separação por PKG
+ * Não há uma interface no pkg do presenter porque estamos usando a interface feita pelo java.util
  */
 package MVP_Presenter;
 
@@ -14,9 +15,9 @@ import java.text.DecimalFormat;
  * Presenter possui um ponteiro para a interface da View.
  * O presenter possui ponteiro para a model (camada de baixo).
  * RESPONSABILITY: 
- * ESCOLHER O METODO DE INTERPOLACAO DESEJADO E CRIAR O OBJETO CORRESPONDENTE
- * DADO O VALOR DE X, EFETIVAMENTE LER O ARQUIVO E CHAMAR O CALCULO. 
- * LER ARQUIVO DE DADOS
+ * 7. ESCOLHER O METODO DE INTERPOLACAO DESEJADO E CRIAR O OBJETO CORRESPONDENTE
+ * 5.6. DADO O VALOR DE X, EFETIVAMENTE LER O ARQUIVO E CHAMAR O CALCULO. 
+ *3. LER ARQUIVO DE DADOS
  */
 import java.util.Observable;
 import java.util.StringTokenizer;
@@ -26,9 +27,9 @@ import MVP_Models.CubicSpline;
 import MVP_Models.InterpolationMethod;
 import MVP_Models.Lagrange;
 
-public class Presenter extends Observable{
+public class Presenter extends Observable{//Q2 implementação do DP Observer
 
-	private InterpolationMethod interpolationModel;
+	private InterpolationMethod interpolationModel;//Presenter possui ponteiro para model.
     
     private FileReader input;
     private BufferedReader bufRead;
@@ -49,7 +50,7 @@ public class Presenter extends Observable{
         
        this.setMethod(DEFAULT_METHOD);
     }
-	// RESPONSABILITY: ESCOLHER O METODO DE INTERPOLACAO DESEJADO E CRIAR O OBJETO CORRESPONDENTE
+	// RESPONSABILITY:7. ESCOLHER O METODO DE INTERPOLACAO DESEJADO E CRIAR O OBJETO CORRESPONDENTE
     public InterpolationMethod getMethod() { return interpolationModel; }
     public void setMethod(String method) {
         switch (method) {
@@ -64,7 +65,7 @@ public class Presenter extends Observable{
         }
     }
     
-    // RESPONSABILITY: DADO O VALOR DE X, EFETIVAMENTE LER O ARQUIVO E CHAMAR O CALCULO. 
+    // RESPONSABILITY:5.6. DADO O VALOR DE X, EFETIVAMENTE LER O ARQUIVO E CHAMAR O CALCULO. 
     public void calculateResult(float value) {
         _value = value;
         buildDataPoints();
@@ -76,7 +77,7 @@ public class Presenter extends Observable{
         }
     }
     
-    // RESPONSABILITY: LER ARQUIVO DE DADOS
+    // RESPONSABILITY:3. LER ARQUIVO DE DADOS
  	private void buildDataPoints() {
 
          x = new Vector<Double>();
