@@ -116,4 +116,8 @@ public class Presenter extends Observable{
  	    this.setChanged();
  		this.notifyObservers(texto);
  	}
+ 	//Funcao para definir o novo metodo
+ 	public void defineNewMethod(InterpolationMethod myMethod) {
+ 		interpolationModel = myMethod;
+ 	}
 }

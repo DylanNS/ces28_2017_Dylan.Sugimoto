@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Observable;
 import MVP_Presenter.Presenter;
 import java.util.Observer;
+
+import MVP_Models.InterpolationMethod;
 /**
  * 
  * @author Dylan N. Sugimoto
@@ -61,5 +63,12 @@ public class MyInterpolationApp  implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		System.out.println(arg1);
 	}
-
+	
+	//Deixa o Usuario criar a sua classe Model que deve implementar a Interface do Model
+	//E ele define o novo metodo criando uma instancia da classe que ele criou e
+	//passando como parametro para esta funcao que delega para o presenter.
+	public void defineNewInterpolationCalculate(InterpolationMethod myMethod) {
+		_myPresenter.defineNewMethod(myMethod);
+	}
+	
 }//class
