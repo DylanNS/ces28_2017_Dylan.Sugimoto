@@ -21,7 +21,7 @@ public class Lagrange implements InterpolationMethod {
             sum = sum + product;
         }
 
-        return sum;
+        return sum; //Poderia ser implementado da forma de Observer e Observable, mas eh complicar o facil.
     }
 
     @Override

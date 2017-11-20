@@ -1,18 +1,9 @@
 package MVP_View;
 
-
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.Observable;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
-import MVP_Presenter.IView;
 import MVP_Presenter.Presenter;
-
+import java.util.Observer;
 /**
  * 
  * @author Dylan N. Sugimoto
@@ -23,7 +14,7 @@ import MVP_Presenter.Presenter;
  *  DEFINIR QUAL EH O ARQUIVO COM DADOS DE PONTOS DA FUNCAO (LEITURA ENTRADA DE USUARIO HUMANO)
  *  DEFINIR PONTO DE INTERPOLACAO (LEITURA ENTRADA DE USUARIO HUMANO)
  */
-public class MyInterpolationApp  implements IView{
+public class MyInterpolationApp  implements Observer{
     
 	private Presenter _myPresenter;
 
