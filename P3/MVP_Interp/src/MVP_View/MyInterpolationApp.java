@@ -1,3 +1,4 @@
+//Q1 Separacao por pkg
 package MVP_View;
 
 import java.io.File;
@@ -5,16 +6,16 @@ import java.util.Observable;
 import MVP_Presenter.Presenter;
 import java.util.Observer;
 
-import MVP_Models.InterpolationMethod;
+import MVP_Models.InterpolationMethod;//Precisa para Q3.
 /**
  * 
  * @author Dylan N. Sugimoto
  * MyInterpolationApp virou a view que implementa a interface Observer.
  * Logo, MyInterpolationApp é um Observer de Presenter.
  * MyInterpolationApp tem um ponteiro para Presenter (camada de baixo).
- *  RESPONSABILITY: IMPRIMIR RESULTADOS
- *  DEFINIR QUAL EH O ARQUIVO COM DADOS DE PONTOS DA FUNCAO (LEITURA ENTRADA DE USUARIO HUMANO)
- *  DEFINIR PONTO DE INTERPOLACAO (LEITURA ENTRADA DE USUARIO HUMANO)
+ * 4. RESPONSABILITY: IMPRIMIR RESULTADOS
+ * 2.  DEFINIR QUAL EH O ARQUIVO COM DADOS DE PONTOS DA FUNCAO (LEITURA ENTRADA DE USUARIO HUMANO)
+ * 1. DEFINIR PONTO DE INTERPOLACAO (LEITURA ENTRADA DE USUARIO HUMANO)
  */
 public class MyInterpolationApp  implements Observer{
     
@@ -50,6 +51,7 @@ public class MyInterpolationApp  implements Observer{
 		System.out.println(arg1);
 	}
 	
+	//Q3
 	//Deixa o Usuario criar a sua classe Model que deve implementar a Interface do Model
 	//E ele define o novo metodo criando uma instancia da classe que ele criou e
 	//passando como parametro para esta funcao que delega para o presenter.

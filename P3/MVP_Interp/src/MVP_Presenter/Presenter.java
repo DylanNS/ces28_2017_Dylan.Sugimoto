@@ -1,6 +1,7 @@
 /**
  * @author Dylan N. Sugimoto
  * Data: 20/11/2017
+ * Q1. Separação por PKG
  */
 package MVP_Presenter;
 
@@ -116,6 +117,8 @@ public class Presenter extends Observable{
  	    this.setChanged();
  		this.notifyObservers(texto);
  	}
+ 	
+ 	//Q3
  	//Funcao para definir o novo metodo
  	public void defineNewMethod(InterpolationMethod myMethod) {
  		interpolationModel = myMethod;
