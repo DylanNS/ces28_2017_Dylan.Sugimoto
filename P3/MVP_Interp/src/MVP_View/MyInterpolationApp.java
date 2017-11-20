@@ -42,6 +42,8 @@ public class MyInterpolationApp  implements Observer{
     private void askUserMethod(String method) {
     	_myPresenter.setMethod(method);
     }
+    //DEIXAMOS A MAIN AQUI NO VIEW SÓ PARA NÃO PRECISAR CRIAR OUTRA CLASSE, SÓ PARA RODAR A MAIN.
+    //MAS TEORICAMENTE A MAIN DEVERIA SER MOVIDA PARA UMA CLASSE SÓ PARA RODAR A MAIN.
 	   public static void main(String[] args) {
 		   // RESPONSABILITY: CREATE APP
 		   MyInterpolationApp myInterp = new MyInterpolationApp();
