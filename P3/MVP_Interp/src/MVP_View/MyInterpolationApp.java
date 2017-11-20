@@ -6,117 +6,69 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Observable;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import MVP_Presenter.IView;
+import MVP_Presenter.Presenter;
 
-
-public class MyInterpolationApp  {
-    private InterpolationMethod interpolationModel;
+/**
+ * 
+ * @author Dylan N. Sugimoto
+ * MyInterpolationApp virou a view que implementa a interface IView.
+ * Logo, MyInterpolationApp é um Observer de Presenter.
+ * MyInterpolationApp tem um ponteiro para Presenter (camada de baixo).
+ *  RESPONSABILITY: IMPRIMIR RESULTADOS
+ *  DEFINIR QUAL EH O ARQUIVO COM DADOS DE PONTOS DA FUNCAO (LEITURA ENTRADA DE USUARIO HUMANO)
+ *  DEFINIR PONTO DE INTERPOLACAO (LEITURA ENTRADA DE USUARIO HUMANO)
+ */
+public class MyInterpolationApp  implements IView{
     
-    private FileReader input;
-    private BufferedReader bufRead;
-    private StringTokenizer xy;
-    private double _value, result;
-    private File _file;
-    private Vector<Double> x, y;
-    private final String CS_METHOD = "Cubic Spline";
-    private final String L_METHOD = "Lagrange";
-    private DecimalFormat formatResult = new DecimalFormat("####.######");
-    private final String DEFAULT_METHOD = CS_METHOD;
+	private Presenter _myPresenter;
 
     public MyInterpolationApp() {
+        _myPresenter = new Presenter();
+        _myPresenter.addObserver(this);
         
-        bind();
      }
 
-    public void bind() {
-        
-        interpolationModel = (InterpolationMethod) getMethod(DEFAULT_METHOD);
+
+  
+//RESPONSABILITY: DEFINIR QUAL EH O ARQUIVO COM DADOS DE PONTOS DA FUNCAO (LEITURA ENTRADA DE USUARIO HUMANO)
+    private void askUserFile(File file) {
+    	if(file == null)
+            return;
+         else _myPresenter.setFile(file);
     }
-
-    public File getDataFile() {
-        
-        return _file;
+  //RESPONSABILITY:DEFINIR PONTO DE INTERPOLACAO (LEITURA ENTRADA DE USUARIO HUMANO)
+    private void askUserInterpolationPoint(float point) {
+    	_myPresenter.calculateResult(point);
     }
-
- // RESPONSABILITY: ESCOLHER O METODO DE INTERPOLACAO DESEJADO E CRIAR O OBJETO CORRESPONDENTE
-    public InterpolationMethod getMethod() { return interpolationModel; }
-    public InterpolationMethod getMethod(String method) {
-        switch (method) {
-            case L_METHOD:
-                interpolationModel = new Lagrange();
-                break;
-            case CS_METHOD:
-                interpolationModel = new CubicSpline();
-                break;
-            default:
-            	System.out.println("Unknown method " + method);
-        }
-
-        return interpolationModel;
+  //RESPONSABILITY:DEFINIR Method (LEITURA ENTRADA DE USUARIO HUMANO)
+    private void askUserMethod(String method) {
+    	_myPresenter.setMethod(method);
     }
-
-    
-    // RESPONSABILITY: DADO O VALOR DE X, EFETIVAMENTE LER O ARQUIVO E CHAMAR O CALCULO. 
-    public void calculateResult(float value, File file) {
-        _value = value;
-        buildDataPoints(file);
-        if(getMethod() != null) {
-            result = getMethod().calculateResult(_value, x, y);
-            printResult();
-        } else {
-            System.out.println("It is not defined an interpolation method.");
-        }
-    }
-
- // RESPONSABILITY: IMPRIMIR RESULTADOS
-    private void printResult() {
-    	System.out.println("***********************");
-    	System.out.println("DataFile: " + getDataFile());
-    	System.out.println("Interp at " + formatResult.format(_value) + " ; result = " + formatResult.format(result));
-	}
-
-    // RESPONSABILITY: LER ARQUIVO DE DADOS
-	private void buildDataPoints(File file) {
-        if(file == null)
-           return;
-        else _file = file;
-
-        x = new Vector<Double>();
-        y = new Vector<Double>();
-        try {
-            input = new FileReader(_file);
-		    /* Filter FileReader through a Buffered read to read a line at a time */
-            bufRead = new BufferedReader(input);
-            // Read first line
-            String line = bufRead.readLine();
-            // Read through file one line at time.
-            while (line != null){
-                xy = new StringTokenizer(line, "\t ");
-                while(xy.hasMoreTokens()) {
-                    x.addElement(Double.parseDouble(xy.nextToken()));
-                    y.addElement(Double.parseDouble(xy.nextToken()));
-                }
-                line = bufRead.readLine();
-            }
-            bufRead.close();
-        } catch (IOException e) { // If another exception is generated, print a stack trace
-            e.printStackTrace();
-        }
-    }//buildDataPoints
-
 	   public static void main(String[] args) {
 		   // RESPONSABILITY: CREATE APP
 		   MyInterpolationApp myInterp = new MyInterpolationApp();
 
         // ENTRADA DE USUARIO HUMANO: ESCOLHA DO METODO DE INTERPOLACAO   
         // RESPONSABILITY: LEITURA DO NOME DO METODO DE INTERPOLACAO
-		   myInterp.getMethod("Lagrange");
+		   myInterp.askUserMethod("Lagrange");
 		// ENTRADA DE USUARIO HUMANO: PONTO DE INTERPOLACAO E NOME DO ARQUIVO DE DADOS.   
 		// RESPONSABILITY: DEFINIR PONTO DE INTERPOLACAO (LEITURA ENTRADA DE USUARIO HUMANO) 
 		// RESPONSABILITY: DEFINIR QUAL EH O ARQUIVO COM DADOS DE PONTOS DA FUNCAO (LEITURA ENTRADA DE USUARIO HUMANO)
-		   myInterp.calculateResult(10.3f, new File("./data.dat"));
+		   myInterp.askUserFile(new File("./data.dat"));
+		   myInterp.askUserInterpolationPoint(10.3f);
+		   System.out.println("FIM");
 	    }
+
+	//Sempre que o Presenter notificar alguma alteração para View, vai ser para View imprimir algo.
+   // RESPONSABILITY: IMPRIMIR RESULTADOS, AVISOS E CASOS DE ERROS.
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		System.out.println(arg1);
+	}
 
 }//class

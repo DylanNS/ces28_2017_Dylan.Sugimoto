@@ -46,11 +46,11 @@ public class Presenter extends Observable{
 	}
 	public void bind() {
         
-        interpolationModel = (InterpolationMethod) getMethod(DEFAULT_METHOD);
+       this.setMethod(DEFAULT_METHOD);
     }
 	// RESPONSABILITY: ESCOLHER O METODO DE INTERPOLACAO DESEJADO E CRIAR O OBJETO CORRESPONDENTE
     public InterpolationMethod getMethod() { return interpolationModel; }
-    public InterpolationMethod getMethod(String method) {
+    public void setMethod(String method) {
         switch (method) {
             case L_METHOD:
                 interpolationModel = new Lagrange();
@@ -59,29 +59,24 @@ public class Presenter extends Observable{
                 interpolationModel = new CubicSpline();
                 break;
             default:
-            	System.out.println("Unknown method " + method);
+            	this.notifyObservers("Unknown method " + method);
         }
-
-        return interpolationModel;
     }
     
     // RESPONSABILITY: DADO O VALOR DE X, EFETIVAMENTE LER O ARQUIVO E CHAMAR O CALCULO. 
-    public void calculateResult(float value, File file) {
+    public void calculateResult(float value) {
         _value = value;
-        buildDataPoints(file);
+        buildDataPoints();
         if(getMethod() != null) {
             result = getMethod().calculateResult(_value, x, y);
             printResult();
         } else {
-            System.out.println("It is not defined an interpolation method.");
+        	this.notifyObservers("It is not defined an interpolation method.");
         }
     }
     
     // RESPONSABILITY: LER ARQUIVO DE DADOS
- 	private void buildDataPoints(File file) {
-         if(file == null)
-            return;
-         else _file = file;
+ 	private void buildDataPoints() {
 
          x = new Vector<Double>();
          y = new Vector<Double>();
@@ -109,8 +104,16 @@ public class Presenter extends Observable{
         
         return _file;
     }
+ 	public void setFile(File arquivo) {
+ 		_file = arquivo;
+ 	}
  	//Notificar a view da alteracao e pedir para imprimir o resultado.
  	private void printResult() {
- 		
+ 		String texto = "***********************"+"\n"
+ 	                   +"DataFile: " + getDataFile()+"\n"
+ 	                   +"Interp at " + formatResult.format(_value) + " ; result = " + formatResult.format(result)
+ 	                   +"\n";
+ 	    this.setChanged();
+ 		this.notifyObservers(texto);
  	}
 }
