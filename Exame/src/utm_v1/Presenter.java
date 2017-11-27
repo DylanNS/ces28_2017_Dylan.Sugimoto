@@ -40,7 +40,7 @@ public class Presenter extends Observable implements Observer{
 		
 		Drone drone = _droneAtivo.get(id);
 		if(drone == null) {
-			System.out.println("id invalido!");
+			//System.out.println("id invalido!");
 		}
 		else {
 			drone.alterarPosicao(pos);
